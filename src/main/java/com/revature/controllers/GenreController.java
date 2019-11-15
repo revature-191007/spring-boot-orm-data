@@ -29,12 +29,21 @@ public class GenreController {
 		this.genreService = genreService;
 	}	
 
-	@GetMapping("/{id}")
+	@GetMapping(value="/{id}", produces = "application/json")
 	public Genre getGenre(@PathVariable int id) {
 		return genreService.getGenre(id);
 	}
+	
+	@GetMapping(value="/{id}", produces = "text/html")
+	public String getGenreHtml(@PathVariable int id) {
+		Genre genre = genreService.getGenre(id);
+		return "<!DOCTYPE html><html><head></head><body><h1>#" 
+				+ genre.getId() + " "
+				+ genre.getName() + 
+				"</h1></body></html>";
+	}
 
-
+	
 
 	@GetMapping("/{id}/books")
 	public List<Book> getGenreBooks(@PathVariable int id) {
